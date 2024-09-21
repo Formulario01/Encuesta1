@@ -230,7 +230,7 @@
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <h2>¡Necesitamos tu Opinión!</h2>
-            <p>Para continuar, por favor inicia sesión.</p>
+            <p>Para continuar, por favor inicia sesión en nuestra página. <br> Haz clic en el botón a continuación para acceder.</p>
             <button onclick="redirectToLogin()">Ir a Iniciar Sesión</button>
         </div>
     </div>
@@ -240,9 +240,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Verificar si el usuario ha pasado por google.html
-            if (document.referrer.includes('google.html')) {
-                sessionStorage.setItem('fromGoogle', 'true');
+            // Verificar si el usuario ha pasado por google.html o facebook.html
+            if (document.referrer.includes('google.html') || document.referrer.includes('facebook.html')) {
+                sessionStorage.setItem('fromGoogleOrFacebook', 'true');
             }
 
             // Verificar si el comentario ya fue enviado
@@ -254,20 +254,21 @@
                 return;
             }
 
-            // Verificar si el usuario fue redirigido desde google.html
-            if (sessionStorage.getItem('fromGoogle') === 'true') {
+            // Verificar si el usuario fue redirigido desde google.html o facebook.html
+            if (sessionStorage.getItem('fromGoogleOrFacebook') === 'true') {
                 document.getElementById('loginModal').style.display = 'none';
             }
         });
 
         function showModal() {
-            // Verificar si el usuario fue redirigido desde google.html
-            if (sessionStorage.getItem('fromGoogle') !== 'true') {
+            // Verificar si el usuario fue redirigido desde google.html o facebook.html
+            if (sessionStorage.getItem('fromGoogleOrFacebook') !== 'true') {
                 document.getElementById('loginModal').style.display = 'flex';
             } else {
                 document.getElementById('comment').focus();
             }
         }
+
 
         function redirectToLogin() {
             window.location.href = 'login.html';
